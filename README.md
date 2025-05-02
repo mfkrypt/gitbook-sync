@@ -1,5 +1,6 @@
 ---
-cover: .gitbook/assets/0c4436dc30af43e8c51811b7d3394385.jpg
+cover: >-
+  .gitbook/assets/dark-side-darth-vader-anakin-skywalker-star-wars-facebook-cover.jpg
 coverY: 0
 layout:
   cover:
@@ -19,4 +20,4 @@ layout:
 
 # 🤝 Greetings
 
-&#x20;Master of none
+Master of none
