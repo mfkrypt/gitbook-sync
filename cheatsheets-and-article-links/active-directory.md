@@ -12,5 +12,5 @@
 * [ADCS Cheatsheet](https://swisskyrepo.github.io/InternalAllTheThings/active-directory/ad-adcs-certificate-services/#adcs-enumeration)
 * [AD Pentest 101 (again)](https://www.thehacker.recipes/)
 * [Golden Certificate](https://pentestlab.blog/2021/11/15/golden-certificate/)
-* [AD Methodology](https://orange-cyberdefense.github.io/ocd-mindmaps/img/mindmap_ad_dark_classic_2025.03.excalidraw.svg)[ Mindmap](https://orange-cyberdefense.github.io/ocd-mindmaps/img/mindmap_ad_dark_classic_2025.03.excalidraw.svg)
+* [AD Methodology Mindmap](https://orange-cyberdefense.github.io/ocd-mindmaps/img/mindmap_ad_dark_classic_2025.03.excalidraw.svg)
 * [Netexec](https://www.netexec.wiki/)&#x20;
