@@ -20,7 +20,3 @@ layout:
 # 🤝 Greetings
 
 &#x20;Master of none
-
-
-
-### Jump right in
