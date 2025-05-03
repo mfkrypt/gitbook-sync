@@ -2,12 +2,6 @@
 
 * [🤝 Greetings](README.md)
 
-## 🖼️ LEKIR Framework practice
-
-* [Backdoor Exploiting](lekir-framework-practice/backdoor-exploiting.md)
-* [SQL Injection with sqlmap](lekir-framework-practice/sql-injection-with-sqlmap.md)
-* [LFI Gif Upload Chain](lekir-framework-practice/lfi-gif-upload-chain.md)
-
 ## 📘 CTF writeups
 
 * [TryHackMe](ctf-writeups/tryhackme/README.md)
@@ -109,10 +103,59 @@
   * [Forensics](ctf-writeups/picoctf/forensics/README.md)
     * [Wireshark-two-two](ctf-writeups/picoctf/forensics/wireshark-two-two.md)
 
-## 💣 Bomb Lab
+## 🕸️ PortSwigger (Web Academy)
 
-* [Phase 1](bomb-lab/phase-1.md)
-* [Phase 2](bomb-lab/phase-2.md)
+* [Prototype Pollution](portswigger-web-academy/prototype-pollution/README.md)
+  * [Introduction](portswigger-web-academy/prototype-pollution/introduction/README.md)
+    * [Definition](portswigger-web-academy/prototype-pollution/introduction/definition.md)
+    * [Objects](portswigger-web-academy/prototype-pollution/introduction/objects.md)
+    * [Prototypes & Inheritance](portswigger-web-academy/prototype-pollution/introduction/prototypes-and-inheritance.md)
+    * [3 Key Components for Exploitation](portswigger-web-academy/prototype-pollution/introduction/3-key-components-for-exploitation.md)
+  * [Client-Side Prototype Pollution](portswigger-web-academy/prototype-pollution/client-side-prototype-pollution/README.md)
+    * [Lab 1](portswigger-web-academy/prototype-pollution/client-side-prototype-pollution/lab-1.md)
+    * [Lab 2](portswigger-web-academy/prototype-pollution/client-side-prototype-pollution/lab-2.md)
+    * [Lab 3](portswigger-web-academy/prototype-pollution/client-side-prototype-pollution/lab-3.md)
+    * [Constructor](portswigger-web-academy/prototype-pollution/client-side-prototype-pollution/constructor.md)
+    * [Bypassing Weak Key Sanitization](portswigger-web-academy/prototype-pollution/client-side-prototype-pollution/bypassing-weak-key-sanitization.md)
+  * [Prototype Pollution via API](portswigger-web-academy/prototype-pollution/prototype-pollution-via-api/README.md)
+    * [fetch()](portswigger-web-academy/prototype-pollution/prototype-pollution-via-api/fetch.md)
+    * [Lab 4](portswigger-web-academy/prototype-pollution/prototype-pollution-via-api/lab-4.md)
+  * [Server-Side Prototype Pollution](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/README.md)
+    * [Polluted Property Reflection](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/polluted-property-reflection.md)
+    * [Status Code Override](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/status-code-override.md)
+    * [Charset Override](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/charset-override.md)
+    * [JSON Spaces](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/json-spaces.md)
+    * [Bypassing Input Filters](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/bypassing-input-filters.md)
+    * [RCE via Vulnerable Requests](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/rce-via-vulnerable-requests.md)
+    * [RCE via Methods](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/rce-via-methods.md)
+    * [Lab 5 - Reflected](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/lab-5-reflected.md)
+    * [Lab 6 - Status Code & Charset](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/lab-6-status-code-and-charset.md)
+    * [Lab 7 - Constructor Property](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/lab-7-constructor-property.md)
+    * [Lab 8 - JSON Spaces](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/lab-8-json-spaces.md)
+    * [Lab 9 - Vim Technique & B64](portswigger-web-academy/prototype-pollution/server-side-prototype-pollution/lab-9-vim-technique-and-b64.md)
+* [JWT](portswigger-web-academy/jwt/README.md)
+  * [Introduction](portswigger-web-academy/jwt/introduction.md)
+  * [Lab 1 - Unverified Signature](portswigger-web-academy/jwt/lab-1-unverified-signature.md)
+  * [Lab 2 - Flawed Signature Verification](portswigger-web-academy/jwt/lab-2-flawed-signature-verification.md)
+  * [Lab 3 - Weak Signing Key](portswigger-web-academy/jwt/lab-3-weak-signing-key.md)
+  * [JWT Header Parameter Injection](portswigger-web-academy/jwt/jwt-header-parameter-injection.md)
+  * [Lab 4 - Jwk Header Injection](portswigger-web-academy/jwt/lab-4-jwk-header-injection.md)
+  * [Lab 5 - Injecting Self Signed JWT via jku parameter](portswigger-web-academy/jwt/lab-5-injecting-self-signed-jwt-via-jku-parameter.md)
+  * [Lab 6 - Injecting Self Signed JWT via kid parameter](portswigger-web-academy/jwt/lab-6-injecting-self-signed-jwt-via-kid-parameter.md)
+  * [Algorithm Confusion Attacks](portswigger-web-academy/jwt/algorithm-confusion-attacks.md)
+  * [Lab 7 - JWT bypass via algorithm confusion](portswigger-web-academy/jwt/lab-7-jwt-bypass-via-algorithm-confusion.md)
+  * [Lab 8 - JWT bypass via algorithm confusion with no exposed key](portswigger-web-academy/jwt/lab-8-jwt-bypass-via-algorithm-confusion-with-no-exposed-key.md)
+* [XSS](portswigger-web-academy/xss/README.md)
+  * [Reflected XSS](portswigger-web-academy/xss/reflected-xss/README.md)
+    * [Lab 1](portswigger-web-academy/xss/reflected-xss/lab-1.md)
+  * [Stored XSS](portswigger-web-academy/xss/stored-xss/README.md)
+    * [Lab 2](portswigger-web-academy/xss/stored-xss/lab-2.md)
+  * [Dom-based XSS](portswigger-web-academy/xss/dom-based-xss/README.md)
+    * [Lab 3](portswigger-web-academy/xss/dom-based-xss/lab-3.md)
+    * [Lab 4](portswigger-web-academy/xss/dom-based-xss/lab-4.md)
+    * [Lab 5](portswigger-web-academy/xss/dom-based-xss/lab-5.md)
+    * [Lab 6](portswigger-web-academy/xss/dom-based-xss/lab-6.md)
+    * [Sinks that can lead to DOM-XSS vulnerabilities](portswigger-web-academy/xss/dom-based-xss/sinks-that-can-lead-to-dom-xss-vulnerabilities.md)
 
 ## ☠️ Binary Exploitation
 
@@ -137,3 +180,14 @@
 * [Forensics](cheatsheets-and-article-links/forensics.md)
 * [Intigriti-Monthly-Challenges](cheatsheets-and-article-links/intigriti-monthly-challenges.md)
 * [Miscellaneous / General](cheatsheets-and-article-links/miscellaneous-general.md)
+
+## 🖼️ LEKIR Framework practice
+
+* [Backdoor Exploiting](lekir-framework-practice/backdoor-exploiting.md)
+* [SQL Injection with sqlmap](lekir-framework-practice/sql-injection-with-sqlmap.md)
+* [LFI Gif Upload Chain](lekir-framework-practice/lfi-gif-upload-chain.md)
+
+## 💣 Bomb Lab
+
+* [Phase 1](bomb-lab/phase-1.md)
+* [Phase 2](bomb-lab/phase-2.md)

