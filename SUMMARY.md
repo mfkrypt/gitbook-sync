@@ -96,6 +96,8 @@
 * [EQCTF](ctf-writeups/eqctf/README.md)
   * [Web](ctf-writeups/eqctf/web/README.md)
     * [Vault](ctf-writeups/eqctf/web/vault.md)
+* [UMCS CTF](ctf-writeups/umcs-ctf/README.md)
+  * [Prelims](ctf-writeups/umcs-ctf/prelims.md)
 * [🔬 GMi-MicroCTF](ctf-writeups/gmi-microctf/README.md)
   * [Web](ctf-writeups/gmi-microctf/web/README.md)
     * [Loot From Inside](ctf-writeups/gmi-microctf/web/loot-from-inside.md)
