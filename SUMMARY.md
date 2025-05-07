@@ -156,6 +156,11 @@
     * [Lab 5](portswigger-web-academy/xss/dom-based-xss/lab-5.md)
     * [Lab 6](portswigger-web-academy/xss/dom-based-xss/lab-6.md)
     * [Sinks that can lead to DOM-XSS vulnerabilities](portswigger-web-academy/xss/dom-based-xss/sinks-that-can-lead-to-dom-xss-vulnerabilities.md)
+    * [Lab 7](portswigger-web-academy/xss/dom-based-xss/lab-7.md)
+
+## 📱 Mobile Hacking Lab
+
+* [Strings](mobile-hacking-lab/strings.md)
 
 ## ☠️ Binary Exploitation
 
