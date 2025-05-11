@@ -109,6 +109,7 @@
     * [GOT DAMN!!!!!!!!](ctf-writeups/bbctf/pwn/got-damn.md)
     * [smoll but angy](ctf-writeups/bbctf/pwn/smoll-but-angy.md)
     * [smoll but spooky](ctf-writeups/bbctf/pwn/smoll-but-spooky.md)
+    * [there\_sir](ctf-writeups/bbctf/pwn/there_sir.md)
   * [Mobile](ctf-writeups/bbctf/mobile/README.md)
     * [Strings](ctf-writeups/bbctf/mobile/strings.md)
     * [Error Messages](ctf-writeups/bbctf/mobile/error-messages.md)
