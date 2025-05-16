@@ -25,7 +25,7 @@ Object.getPrototypeOf(myNumber);  // Number.prototype
 
 Whenever you reference a property of an object, the JavaScript engine first tries to access this directly on the object itself. If the object doesn't have a matching property, the JavaScript engine looks for it on the object's prototype instead. Given the following objects, this enables you to reference `myObject.propertyA`, for example:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can also see this behaviour in the browser console:
 
@@ -35,7 +35,7 @@ let myObject = {};
 
 Next, type `myObject` followed by a dot. Notice that the console prompts you to select from a list of properties and methods:
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 Even though there are no properties or methods defined for the object itself, it has inherited some from the built-in `Object.prototype`.
 

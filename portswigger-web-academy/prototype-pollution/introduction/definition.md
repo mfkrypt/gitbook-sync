@@ -6,7 +6,7 @@ Prototype pollution is an injection attack that targets JavaScript runtimes that
 
 With prototype pollution, an attacker might control the default values of an object's properties to get RCE or perform DOS attacks.
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 

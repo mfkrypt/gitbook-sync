@@ -114,6 +114,8 @@
     * [Strings](ctf-writeups/bbctf/mobile/strings.md)
     * [Error Messages](ctf-writeups/bbctf/mobile/error-messages.md)
     * [Spawing An Export](ctf-writeups/bbctf/mobile/spawing-an-export.md)
+* [pwnable.xyz](ctf-writeups/pwnable.xyz/README.md)
+  * [welcome](ctf-writeups/pwnable.xyz/welcome.md)
 * [🔬 GMi-MicroCTF](ctf-writeups/gmi-microctf/README.md)
   * [Web](ctf-writeups/gmi-microctf/web/README.md)
     * [Loot From Inside](ctf-writeups/gmi-microctf/web/loot-from-inside.md)
